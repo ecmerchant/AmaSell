@@ -75,8 +75,7 @@ class ItemsController < ApplicationController
           @res2 = data[:Skey]
           @res3 = data[:SellerId]
         else
-          Mws.update(
-            User: current_user.email,
+          user.update(
             AWSkey: data[:AWSkey],
             Skey: data[:Skey],
             SellerId: data[:SellerId]
