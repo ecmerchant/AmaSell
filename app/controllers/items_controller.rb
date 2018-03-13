@@ -135,7 +135,7 @@ class ItemsController < ApplicationController
       logger.debug(url)
       user_agent = "Mozilla/5.0 (Windows NT 6.1; rv:28.0) Gecko/20100101 Firefox/28.0"
 
-=begin
+
       begin
         html = open(url, "User-Agent" => user_agent) do |f|
           charset = f.charset
@@ -147,15 +147,7 @@ class ItemsController < ApplicationController
         logger.debug("error!!\n")
         logger.debug(error)
       end
-=end
-      ##
-      request = Typhoeus::Request.new(
-        url,
-        headers: {'User-Agent': user_agent}
-      )
-      request.run
-      html = request.response.body
-      ##
+
       doc = Nokogiri::HTML.parse(html, charset)
       doc.css('li/@data-asin').each do |list|
         cnum += 1
@@ -551,7 +543,7 @@ class ItemsController < ApplicationController
     user_agent = ua[rand(uanum)][0]
     logger.debug("\n\nagent is ")
     logger.debug(user_agent)
-=begin
+
     begin
       html = open(eurl, "User-Agent" => user_agent) do |f|
         charset = f.charset
@@ -562,16 +554,6 @@ class ItemsController < ApplicationController
       logger.debug("error!!\n")
       logger.debug(error)
     end
-=end
-
-    ##
-    request = Typhoeus::Request.new(
-      eurl,
-      headers: {'User-Agent': user_agent}
-    )
-    request.run
-    html = request.response.body
-    ##
 
     doc = Nokogiri::HTML.parse(html, nil, charset)
 
@@ -615,7 +597,7 @@ class ItemsController < ApplicationController
     logger.debug(user_agent)
     surl = surl + "&s1=end&o1=a" #並び順を終了時間でソート
     logger.debug(surl)
-=begin
+
     begin
       html = open(surl, "User-Agent" => user_agent) do |f|
         charset = f.charset
@@ -626,15 +608,7 @@ class ItemsController < ApplicationController
       logger.debug("error!!\n")
       logger.debug(error)
     end
-=end
-##
-    request = Typhoeus::Request.new(
-      surl,
-      headers: {'User-Agent': user_agent}
-    )
-    request.run
-    html = request.response.body
-    ##
+
     doc = Nokogiri::HTML.parse(html, nil, charset)
 
     #ヒットした商品を抜出
